@@ -1,0 +1,115 @@
+/* ============================================================================
+   Site-wide consistency pass (loaded last, after site.css / sdc-book.css).
+   Goal: one type scale, one vertical rhythm, one radius scale, one button
+   height, legible small text, and a breadcrumb line on every inner page.
+   Nothing here changes the clinic's palette, logo or layout structure.
+   ========================================================================== */
+
+/* ---------- 1. type scale ------------------------------------------------- */
+/* hero + page headings sit on one ramp; section headings no longer jump
+   between 26px and 48px from page to page */
+.hero h1{font-size:clamp(2.35rem,4.8vw,3.45rem);letter-spacing:-.03em}
+.phero h1{font-size:clamp(2rem,3.5vw,2.85rem);letter-spacing:-.026em;max-width:24ch}
+.txd2 h1{font-size:clamp(1.7rem,3vw,2.4rem)}
+.section-head h2{font-size:clamp(1.55rem,2.7vw,2.1rem);line-height:1.16;letter-spacing:-.024em}
+.section-head{margin-bottom:clamp(18px,2.4vw,28px)}
+.txd2-panel h2{font-size:clamp(1.02rem,1.45vw,1.18rem)}
+/* the homepage about block used a bare section h2 outside .section-head */
+.split h2,.after h2,.treat h2,.contact h2{font-size:clamp(1.55rem,2.7vw,2.1rem);
+  line-height:1.16;letter-spacing:-.024em}
+p.lead,.lead{font-size:clamp(.98rem,1.2vw,1.06rem);line-height:1.62}
+
+/* ---------- 2. vertical rhythm ------------------------------------------- */
+main > section{padding-block:clamp(46px,4.8vw,68px)}
+.phero{padding-block:clamp(26px,3.2vw,42px) clamp(22px,2.8vw,34px)}
+.urgent{padding-block:clamp(32px,4vw,46px)}
+.ctaband{padding-block:clamp(34px,4.2vw,52px)}
+/* ---------- treatment list: compact, evenly aligned cards ---------------- */
+.txgrid{display:grid;gap:clamp(14px,1.6vw,20px);grid-auto-rows:1fr}
+@media (min-width:1100px){.txgrid{grid-template-columns:repeat(2,1fr)}}
+.txrow,.txrow.alt{
+  display:grid;grid-template-columns:clamp(150px,20%,208px) 1fr;
+  gap:clamp(12px,1.4vw,18px);align-items:stretch;
+  padding:clamp(12px,1.3vw,16px);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:0 1px 2px rgba(18,55,82,.04)}
+.txrow.alt figure{order:0}
+.txrow figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:1/1;height:100%;align-self:stretch}
+.txrow img{width:100%;height:100%;object-fit:cover;display:block}
+.txrow .txbody{display:flex;flex-direction:column;min-width:0;padding:2px 2px 2px 0}
+.txrow h2{font-size:clamp(1rem,1.25vw,1.16rem);letter-spacing:-.018em;line-height:1.2}
+.txrow .specs{margin-top:8px;gap:6px}
+.txrow .spec{font-size:.72rem;padding:4px 9px}
+.txrow .intro{
+  margin-top:10px;font-size:.9rem;line-height:1.5;color:var(--ink-2);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.txrow .txacts{margin-top:auto;padding-top:12px;display:flex;gap:8px;max-width:none}
+.txrow .txacts .btn{min-height:42px;padding:9px 10px;font-size:.83rem;flex:1 1 0;min-width:0;white-space:nowrap;justify-content:center}
+@media (max-width:1099px){
+  .txrow,.txrow.alt{grid-template-columns:clamp(170px,18%,210px) 1fr}
+}
+@media (max-width:560px){
+  .txrow,.txrow.alt{grid-template-columns:1fr;gap:12px}
+  .txrow figure{aspect-ratio:16/10;height:auto}
+  .txrow .intro{-webkit-line-clamp:2}
+  .txrow .txacts{flex-direction:row}
+  .txrow .txacts .btn{min-height:46px;font-size:.85rem}
+}
+.txd2{padding-block:clamp(14px,2vw,22px) clamp(18px,2.4vw,28px)}
+main section + section{margin-top:0}
+
+/* ---------- 3. radius scale ---------------------------------------------- */
+.card,.tcard,.cbox,.point,.txd2-panel,.txd2-card,.bk-panel,.bk-card,
+.bk-day,.bk-slot{border-radius:var(--r)}
+.cbox,.footer-hint{border-radius:var(--r)}
+.tick{border-radius:10px}
+
+/* ---------- 4. one button height ----------------------------------------- */
+.btn{min-height:46px;padding:11px 20px;border-radius:12px;font-size:.94rem}
+.tx-actions .btn,.txd2-cta .btn,.txd2-card .btn,.card-btn,
+.tcard .tx-actions .btn,.card .book,.cbox .btn{min-height:46px}
+.btn-sm{min-height:40px;padding:8px 14px;font-size:.86rem}
+.btn-big{min-height:52px}
+.tx-actions{gap:10px}
+@media (max-width:860px){
+  .btn{min-height:48px}
+  .tx-actions .btn,.txd2-cta .btn,.txd2-card .btn{min-height:48px}
+}
+
+/* ---------- 5. legible small text ---------------------------------------- */
+/* weekday strip in the booking calendar */
+.bk-dow,.bk-dow span{font-size:.72rem;color:var(--ink-2);font-weight:600}
+[data-theme="dark"] .bk-dow{color:var(--ink-2)}
+/* inactive step numbers were 3.5:1 */
+.bkf-nav li span.n{color:var(--ink-2);background:var(--card);border:1px solid var(--line)}
+.bkf-nav li[data-state="active"] span.n{color:#fff;background:var(--teal-dk);border-color:transparent}
+/* the small caps label inside the treatment tile badge */
+.txd2-visual .txd2-badge span{color:var(--ink-2)}
+/* muted helper text should still clear 4.5:1 on the light grey surface */
+.note,.helper,.f-meta,small,.hint,.bk-note,.xcard span,.xcard p{color:var(--ink-2)}
+/* amber "pending confirmation" chip was ~2.3:1 */
+.bk-pill{color:#4A3208;font-weight:700}
+[data-theme="dark"] .bk-pill{color:#F5CE86}
+/* inline "optional" note inside a field label */
+.bk-field label span:not(.req),#bkForm label span:not(.req),.bk-label span:not(.req){color:var(--ink-2)}
+.bkf .hint,.bk-field .hint,.bk-field small,.bk-form .hint{color:var(--ink-2)}
+/* breadcrumb separators are decorative but should not read as disabled */
+.pcrumb span[aria-hidden],.txd2-crumb span[aria-hidden]{color:var(--ink-2);opacity:.6}
+
+/* ---------- 6. breadcrumbs on every inner page --------------------------- */
+.pcrumb{display:flex;flex-wrap:wrap;align-items:center;gap:7px;
+  font-size:.78rem;color:var(--ink-3);margin-bottom:14px}
+.pcrumb a{color:var(--teal-dk);font-weight:600;display:inline-flex;align-items:center;min-height:34px}
+.pcrumb a:hover{text-decoration:underline}
+.pcrumb span[aria-hidden]{opacity:.5}
+.pcrumb span:last-child{color:var(--ink-2);font-weight:600}
+[data-theme="dark"] .pcrumbs,[data-theme="dark"] .pcrum{color:var(--ink-3)}
+[data-theme="dark"] .pcrum a{color:#7ED4E2}
+
+/* ---------- 7. image consistency ----------------------------------------- */
+.txrow figure img,.tcard figure img,.txd2-thumb img{aspect-ratio:1/1;object-fit:cover}
+.txrow figure,.tcard figure,.txrow img,.tcard img{border-radius:clamp(14px,1.4vw,18px)}
+
+/* ---------- 8. footer alignment ------------------------------------------ */
+footer .f-grid{gap:clamp(20px,3vw,34px)}
+footer .f-links{gap:8px 22px}
