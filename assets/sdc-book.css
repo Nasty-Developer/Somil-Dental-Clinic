@@ -259,3 +259,33 @@ a.bk-confirm,a.bk-back{text-decoration:none}
 .btn-ghost:hover{background:rgba(255,255,255,.16);border-color:#fff;color:#fff}
 .ctaband .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
 .ctaband .btn-ghost:hover{background:rgba(255,255,255,.16);border-color:#fff;color:#fff}
+
+/* ---- mobile usability pass (2026-11-22) --------------------------------
+   1. iOS Safari zooms the whole page when a focused field is under 16px, so
+      the booking fields get a hard 16px floor on phones.
+   2. The five-step progress bar was a 544px strip inside a 346px box, so
+      steps 4 and 5 sat off-screen with nothing hinting they were there. On
+      phones the labels drop and the numbered dots share the full width; the
+      "Step n of 5" line inside each panel still names the step.
+   3. Calendar day cells were 36px squares. Dates are the most-tapped control
+      in the flow, so they now keep a 44px tap height. */
+@media (max-width:860px){
+  .bk-field input,.bk-field textarea,.bk-field select{font-size:16px}
+}
+@media (max-width:640px){
+  .bkf-nav{overflow:visible;gap:8px}
+  .bkf-nav li{min-width:0;flex:1 1 0;align-items:center}
+  .bkf-nav li b{display:none}
+  .bkf-nav li span.n{width:26px;height:26px;font-size:.8rem}
+  .bk-day{aspect-ratio:auto;min-height:44px}
+  .bk-opt-in{padding:14px}
+  /* reclaim the panel's inner padding so the seven date columns get wider
+     than 36px; dates are the tightest grid in the flow */
+  .bk-panel{padding:16px}
+  .bk-cal-box{padding:10px}
+  .bk-dow,.bk-days{gap:2px}
+}
+@media (max-width:380px){
+  .bk-panel{padding:14px}
+  .bk-day{font-size:.85rem}
+}

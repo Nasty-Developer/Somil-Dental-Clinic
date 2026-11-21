@@ -216,3 +216,21 @@ main section[id], .txrow, .txd2-card, #consultation {scroll-margin-top:96px}
 @media (max-width:1024px){
   .fabs{display:none}
 }
+
+/* ---- mobile usability pass (2026-11-22) --------------------------------
+   Footer links, breadcrumbs, contact action links and the related-treatment
+   cards were 34-41px tall, all under the 44px minimum for a comfortable tap.
+   The chat composer was also 14.4px, which makes iOS zoom on focus.
+   Applies up to 860px, where the touch bar and drawer are still in use. */
+@media (max-width:860px){
+  .f-links{gap:0 22px}
+  .f-links a{min-height:44px;display:inline-flex;align-items:center}
+  .pcrumb a,.txd2-crumb a{min-height:44px;display:inline-flex;align-items:center}
+  .cbox a{min-height:44px}
+  .txd2-rel a{min-height:44px;display:flex;align-items:center}
+  .txd2-sub,.txd2-kicker{font-size:.72rem}
+  .chat-form input{font-size:16px;min-height:44px}
+  .chat-form button{width:44px;height:44px}
+  /* the top-bar theme toggle and menu button were 40px on phones */
+  .burger,.tt{width:44px;height:44px}
+}
